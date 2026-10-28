@@ -1,0 +1,10 @@
+# Baseline scene configuration (paths are Colab-side unless noted)
+scene: train
+dataset_zip_url: https://huggingface.co/camenduru/gaussian-splatting/resolve/main/tandt_db.zip
+pretrained_zip_url: https://huggingface.co/camenduru/gaussian-splatting/resolve/main/GaussianViewTest.zip
+# after unzip in /content/work:
+dataset_dir: /content/work/tandt/train
+model_dir: /content/work/GaussianViewTest/model
+iteration: 30000
+baseline_ply: /content/work/GaussianViewTest/model/point_cloud/iteration_30000/point_cloud.ply
+seed: 0

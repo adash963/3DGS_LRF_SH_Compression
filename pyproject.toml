@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sh-compression"
+version = "0.1.0"
+description = "Low-rank + VQ compression of 3DGS spherical-harmonic coefficients"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "scipy",
+    "plyfile",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+metrics = ["scikit-image", "imageio", "pandas", "matplotlib"]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

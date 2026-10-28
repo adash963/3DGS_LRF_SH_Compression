@@ -1,0 +1,5 @@
+codebook_size: 64
+mode: vq
+name: vq_r8_k64
+rank: 8
+seed: 0

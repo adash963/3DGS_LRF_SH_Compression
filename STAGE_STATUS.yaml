@@ -1,0 +1,21 @@
+current_stage: 8
+stage_name: report_and_reproducibility_package
+status: in_progress
+last_known_good_commit: 5f00812
+stages_passed:
+  - stage_0: requirements and baseline selection (91c9873)
+  - stage_1: T4 env + 38/38 baseline renders (c705152; fresh-runtime Run-all deferred to stage 8)
+  - stage_2: coefficient roundtrip exact + render roundtrip bit-exact (a9feb6b)
+  - stage_3: synthetic SVD tests + real rank analysis, effective rank 12 (5f00812)
+  - stage_4: low-rank compressor, full-rank anchor 101 dB (82b0fa5)
+  - stage_5: scalar + kmeans VQ, full byte accounting (82b0fa5)
+  - stage_6: 12-config render eval, PSNR/SSIM/LPIPS per view (27a3b14)
+  - stage_7: ablation figures, visual comparisons, results table (aa39dcb)
+  - stage_8_reproduction: fresh-runtime Run-all PASS, metrics identical to originals
+    (results/final_reproduction/reproduction_report.md; repo under test 95697f7)
+blocking_tests: []
+known_risks:
+  - Raw Colab renders not archived off-runtime (regenerable; metrics + crops committed)
+  - Second scene (truck) not evaluated (documented limitation, optional extension)
+next_action: report polish pass by author; optional second scene
+updated_at: 2026-08-02

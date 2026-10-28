@@ -1,0 +1,18 @@
+{
+  "name": "vq_r4_k64",
+  "status": "ok",
+  "rank": 4,
+  "mode": "vq",
+  "codebook_size": 64,
+  "factor_dtype": null,
+  "scalar_bits": null,
+  "coeff_mse": 0.005635498091578484,
+  "coeff_rel_frobenius_error": 0.2264910787343979,
+  "asset_file_bytes": 778816,
+  "baseline_sh_bytes": 205720704,
+  "compressed_sh_bytes": 778816,
+  "sh_compression_ratio": 264.1454515572356,
+  "baseline_ply_bytes": 265724108,
+  "whole_model_bytes_compressed": 60782220,
+  "whole_model_ratio": 4.371740749186193
+}

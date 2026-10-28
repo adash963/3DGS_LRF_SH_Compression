@@ -1,0 +1,4 @@
+mode: scalar
+name: sq_r8_b8
+rank: 8
+scalar_bits: 8

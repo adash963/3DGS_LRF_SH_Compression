@@ -1,0 +1,18 @@
+{
+  "name": "lr_r8_fp16",
+  "status": "ok",
+  "rank": 8,
+  "mode": "lowrank",
+  "codebook_size": null,
+  "factor_dtype": "float16",
+  "scalar_bits": null,
+  "coeff_mse": 0.0019357397686690092,
+  "coeff_rel_frobenius_error": 0.13274218142032623,
+  "asset_file_bytes": 16144113,
+  "baseline_sh_bytes": 205720704,
+  "compressed_sh_bytes": 16144113,
+  "sh_compression_ratio": 12.742769082451293,
+  "baseline_ply_bytes": 265724108,
+  "whole_model_bytes_compressed": 76147517,
+  "whole_model_ratio": 3.4895964894035876
+}

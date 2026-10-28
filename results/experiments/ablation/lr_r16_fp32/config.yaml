@@ -1,0 +1,3 @@
+mode: lowrank
+name: lr_r16_fp32
+rank: 16
