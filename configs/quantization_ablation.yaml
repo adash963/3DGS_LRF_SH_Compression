@@ -1,0 +1,28 @@
+# Stage 7 experiment matrix. Names are stable identifiers used in results and figures.
+experiments:
+  # low-rank only, fp32
+  - {name: lr_r1_fp32,  rank: 1,  mode: lowrank}
+  - {name: lr_r2_fp32,  rank: 2,  mode: lowrank}
+  - {name: lr_r4_fp32,  rank: 4,  mode: lowrank}
+  - {name: lr_r6_fp32,  rank: 6,  mode: lowrank}
+  - {name: lr_r8_fp32,  rank: 8,  mode: lowrank}
+  - {name: lr_r12_fp32, rank: 12, mode: lowrank}
+  - {name: lr_r16_fp32, rank: 16, mode: lowrank}
+  - {name: lr_r48_fp32, rank: 48, mode: lowrank}
+  # fp16 factor ablation
+  - {name: lr_r4_fp16,  rank: 4,  mode: lowrank, factor_dtype: float16}
+  - {name: lr_r8_fp16,  rank: 8,  mode: lowrank, factor_dtype: float16}
+  - {name: lr_r16_fp16, rank: 16, mode: lowrank, factor_dtype: float16}
+  # scalar quantisation baseline
+  - {name: sq_r8_b8,   rank: 8,  mode: scalar, scalar_bits: 8}
+  - {name: sq_r16_b8,  rank: 16, mode: scalar, scalar_bits: 8}
+  # K-means VQ of U
+  - {name: vq_r4_k64,   rank: 4,  mode: vq, codebook_size: 64,  seed: 0}
+  - {name: vq_r4_k128,  rank: 4,  mode: vq, codebook_size: 128, seed: 0}
+  - {name: vq_r4_k256,  rank: 4,  mode: vq, codebook_size: 256, seed: 0}
+  - {name: vq_r8_k64,   rank: 8,  mode: vq, codebook_size: 64,  seed: 0}
+  - {name: vq_r8_k128,  rank: 8,  mode: vq, codebook_size: 128, seed: 0}
+  - {name: vq_r8_k256,  rank: 8,  mode: vq, codebook_size: 256, seed: 0}
+  - {name: vq_r16_k64,  rank: 16, mode: vq, codebook_size: 64,  seed: 0}
+  - {name: vq_r16_k128, rank: 16, mode: vq, codebook_size: 128, seed: 0}
+  - {name: vq_r16_k256, rank: 16, mode: vq, codebook_size: 256, seed: 0}

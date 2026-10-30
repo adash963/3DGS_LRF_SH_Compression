@@ -1,0 +1,18 @@
+{
+  "name": "sq_r8_b8",
+  "status": "ok",
+  "rank": 8,
+  "mode": "scalar",
+  "codebook_size": null,
+  "factor_dtype": null,
+  "scalar_bits": 8,
+  "coeff_mse": 0.0019515748135745525,
+  "coeff_rel_frobenius_error": 0.1332838535308838,
+  "asset_file_bytes": 7099421,
+  "baseline_sh_bytes": 205720704,
+  "compressed_sh_bytes": 7099421,
+  "sh_compression_ratio": 28.977110105176184,
+  "baseline_ply_bytes": 265724108,
+  "whole_model_bytes_compressed": 67102825,
+  "whole_model_ratio": 3.9599541151955973
+}

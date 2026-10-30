@@ -1,0 +1,18 @@
+{
+  "name": "lr_r12_fp32",
+  "status": "ok",
+  "rank": 12,
+  "mode": "lowrank",
+  "codebook_size": null,
+  "factor_dtype": null,
+  "scalar_bits": null,
+  "coeff_mse": 0.0009621849749237299,
+  "coeff_rel_frobenius_error": 0.09358706325292587,
+  "asset_file_bytes": 48223390,
+  "baseline_sh_bytes": 205720704,
+  "compressed_sh_bytes": 48223390,
+  "sh_compression_ratio": 4.265994240554221,
+  "baseline_ply_bytes": 265724108,
+  "whole_model_bytes_compressed": 108226794,
+  "whole_model_ratio": 2.455252513531908
+}

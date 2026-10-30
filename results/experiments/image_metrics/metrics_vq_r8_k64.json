@@ -1,0 +1,489 @@
+{
+ "config": {
+  "name": "vq_r8_k64",
+  "rank": 8,
+  "mode": "vq",
+  "codebook_size": 64,
+  "seed": 0
+ },
+ "asset_file_bytes": 778508,
+ "sh_compression_ratio": 264.25,
+ "whole_model_ratio": 4.3718,
+ "coeff_rel_frobenius_error": 0.2255,
+ "timing_s": {
+  "compress": 50.22,
+  "reconstruct": 5.93,
+  "render_total": 33.96
+ },
+ "summary": {
+  "gt_psnr": 20.6628,
+  "gt_ssim": 0.7912,
+  "vsbase_psnr": 23.2571,
+  "vsbase_ssim": 0.9124,
+  "gt_lpips": 0.2175,
+  "vsbase_lpips": 0.0957
+ },
+ "n_views": 38,
+ "failed_views": [],
+ "per_view_vs_gt": [
+  {
+   "view": "00000.png",
+   "psnr": 19.9859,
+   "ssim": 0.8027,
+   "lpips": 0.1963
+  },
+  {
+   "view": "00001.png",
+   "psnr": 21.0528,
+   "ssim": 0.8504,
+   "lpips": 0.153
+  },
+  {
+   "view": "00002.png",
+   "psnr": 20.5119,
+   "ssim": 0.8683,
+   "lpips": 0.1194
+  },
+  {
+   "view": "00003.png",
+   "psnr": 21.5019,
+   "ssim": 0.796,
+   "lpips": 0.2708
+  },
+  {
+   "view": "00004.png",
+   "psnr": 22.0989,
+   "ssim": 0.824,
+   "lpips": 0.1986
+  },
+  {
+   "view": "00005.png",
+   "psnr": 23.3088,
+   "ssim": 0.8237,
+   "lpips": 0.2048
+  },
+  {
+   "view": "00006.png",
+   "psnr": 21.8862,
+   "ssim": 0.8356,
+   "lpips": 0.1536
+  },
+  {
+   "view": "00007.png",
+   "psnr": 21.2394,
+   "ssim": 0.7927,
+   "lpips": 0.2317
+  },
+  {
+   "view": "00008.png",
+   "psnr": 21.5151,
+   "ssim": 0.8005,
+   "lpips": 0.2153
+  },
+  {
+   "view": "00009.png",
+   "psnr": 20.3621,
+   "ssim": 0.8301,
+   "lpips": 0.1586
+  },
+  {
+   "view": "00010.png",
+   "psnr": 20.8825,
+   "ssim": 0.8268,
+   "lpips": 0.1838
+  },
+  {
+   "view": "00011.png",
+   "psnr": 20.1016,
+   "ssim": 0.7221,
+   "lpips": 0.2415
+  },
+  {
+   "view": "00012.png",
+   "psnr": 20.3308,
+   "ssim": 0.8481,
+   "lpips": 0.2097
+  },
+  {
+   "view": "00013.png",
+   "psnr": 20.3866,
+   "ssim": 0.8429,
+   "lpips": 0.1985
+  },
+  {
+   "view": "00014.png",
+   "psnr": 17.4492,
+   "ssim": 0.6728,
+   "lpips": 0.3322
+  },
+  {
+   "view": "00015.png",
+   "psnr": 20.4756,
+   "ssim": 0.7569,
+   "lpips": 0.1977
+  },
+  {
+   "view": "00016.png",
+   "psnr": 20.3349,
+   "ssim": 0.726,
+   "lpips": 0.2996
+  },
+  {
+   "view": "00017.png",
+   "psnr": 20.8153,
+   "ssim": 0.762,
+   "lpips": 0.2382
+  },
+  {
+   "view": "00018.png",
+   "psnr": 19.963,
+   "ssim": 0.7182,
+   "lpips": 0.2844
+  },
+  {
+   "view": "00019.png",
+   "psnr": 20.9719,
+   "ssim": 0.7562,
+   "lpips": 0.2645
+  },
+  {
+   "view": "00020.png",
+   "psnr": 19.7856,
+   "ssim": 0.7374,
+   "lpips": 0.2765
+  },
+  {
+   "view": "00021.png",
+   "psnr": 19.8728,
+   "ssim": 0.8004,
+   "lpips": 0.2054
+  },
+  {
+   "view": "00022.png",
+   "psnr": 20.3484,
+   "ssim": 0.8783,
+   "lpips": 0.1336
+  },
+  {
+   "view": "00023.png",
+   "psnr": 22.7961,
+   "ssim": 0.8139,
+   "lpips": 0.1783
+  },
+  {
+   "view": "00024.png",
+   "psnr": 16.294,
+   "ssim": 0.781,
+   "lpips": 0.2006
+  },
+  {
+   "view": "00025.png",
+   "psnr": 22.7487,
+   "ssim": 0.8039,
+   "lpips": 0.1691
+  },
+  {
+   "view": "00026.png",
+   "psnr": 21.313,
+   "ssim": 0.7892,
+   "lpips": 0.2088
+  },
+  {
+   "view": "00027.png",
+   "psnr": 19.3844,
+   "ssim": 0.7599,
+   "lpips": 0.1985
+  },
+  {
+   "view": "00028.png",
+   "psnr": 19.9354,
+   "ssim": 0.7496,
+   "lpips": 0.2036
+  },
+  {
+   "view": "00029.png",
+   "psnr": 26.0222,
+   "ssim": 0.8528,
+   "lpips": 0.1778
+  },
+  {
+   "view": "00030.png",
+   "psnr": 21.5976,
+   "ssim": 0.7898,
+   "lpips": 0.2501
+  },
+  {
+   "view": "00031.png",
+   "psnr": 24.114,
+   "ssim": 0.8625,
+   "lpips": 0.1813
+  },
+  {
+   "view": "00032.png",
+   "psnr": 23.6593,
+   "ssim": 0.8421,
+   "lpips": 0.2251
+  },
+  {
+   "view": "00033.png",
+   "psnr": 13.8272,
+   "ssim": 0.582,
+   "lpips": 0.4132
+  },
+  {
+   "view": "00034.png",
+   "psnr": 20.2994,
+   "ssim": 0.7765,
+   "lpips": 0.2419
+  },
+  {
+   "view": "00035.png",
+   "psnr": 16.6595,
+   "ssim": 0.8077,
+   "lpips": 0.2196
+  },
+  {
+   "view": "00036.png",
+   "psnr": 21.9038,
+   "ssim": 0.787,
+   "lpips": 0.2054
+  },
+  {
+   "view": "00037.png",
+   "psnr": 19.4502,
+   "ssim": 0.7967,
+   "lpips": 0.2222
+  }
+ ],
+ "per_view_vs_baseline": [
+  {
+   "view": "00000.png",
+   "psnr": 23.056,
+   "ssim": 0.9186,
+   "lpips": 0.0894
+  },
+  {
+   "view": "00001.png",
+   "psnr": 22.9659,
+   "ssim": 0.9335,
+   "lpips": 0.0822
+  },
+  {
+   "view": "00002.png",
+   "psnr": 20.8937,
+   "ssim": 0.9107,
+   "lpips": 0.078
+  },
+  {
+   "view": "00003.png",
+   "psnr": 24.4903,
+   "ssim": 0.9289,
+   "lpips": 0.0927
+  },
+  {
+   "view": "00004.png",
+   "psnr": 23.7796,
+   "ssim": 0.9153,
+   "lpips": 0.095
+  },
+  {
+   "view": "00005.png",
+   "psnr": 25.4081,
+   "ssim": 0.9234,
+   "lpips": 0.0928
+  },
+  {
+   "view": "00006.png",
+   "psnr": 23.6782,
+   "ssim": 0.9207,
+   "lpips": 0.0774
+  },
+  {
+   "view": "00007.png",
+   "psnr": 24.1998,
+   "ssim": 0.9195,
+   "lpips": 0.0894
+  },
+  {
+   "view": "00008.png",
+   "psnr": 24.1044,
+   "ssim": 0.9105,
+   "lpips": 0.0919
+  },
+  {
+   "view": "00009.png",
+   "psnr": 24.2439,
+   "ssim": 0.9207,
+   "lpips": 0.0783
+  },
+  {
+   "view": "00010.png",
+   "psnr": 23.9326,
+   "ssim": 0.92,
+   "lpips": 0.0911
+  },
+  {
+   "view": "00011.png",
+   "psnr": 23.6378,
+   "ssim": 0.8833,
+   "lpips": 0.0994
+  },
+  {
+   "view": "00012.png",
+   "psnr": 21.9297,
+   "ssim": 0.9285,
+   "lpips": 0.1125
+  },
+  {
+   "view": "00013.png",
+   "psnr": 21.9636,
+   "ssim": 0.9148,
+   "lpips": 0.108
+  },
+  {
+   "view": "00014.png",
+   "psnr": 21.1088,
+   "ssim": 0.9049,
+   "lpips": 0.1098
+  },
+  {
+   "view": "00015.png",
+   "psnr": 24.2964,
+   "ssim": 0.9154,
+   "lpips": 0.0958
+  },
+  {
+   "view": "00016.png",
+   "psnr": 24.8038,
+   "ssim": 0.9062,
+   "lpips": 0.1057
+  },
+  {
+   "view": "00017.png",
+   "psnr": 23.1416,
+   "ssim": 0.9026,
+   "lpips": 0.1012
+  },
+  {
+   "view": "00018.png",
+   "psnr": 23.0043,
+   "ssim": 0.9031,
+   "lpips": 0.1006
+  },
+  {
+   "view": "00019.png",
+   "psnr": 23.854,
+   "ssim": 0.9056,
+   "lpips": 0.1154
+  },
+  {
+   "view": "00020.png",
+   "psnr": 22.352,
+   "ssim": 0.9159,
+   "lpips": 0.0984
+  },
+  {
+   "view": "00021.png",
+   "psnr": 22.6113,
+   "ssim": 0.9146,
+   "lpips": 0.0931
+  },
+  {
+   "view": "00022.png",
+   "psnr": 20.7616,
+   "ssim": 0.9204,
+   "lpips": 0.0796
+  },
+  {
+   "view": "00023.png",
+   "psnr": 24.7363,
+   "ssim": 0.9049,
+   "lpips": 0.0771
+  },
+  {
+   "view": "00024.png",
+   "psnr": 21.3738,
+   "ssim": 0.8982,
+   "lpips": 0.0835
+  },
+  {
+   "view": "00025.png",
+   "psnr": 24.8708,
+   "ssim": 0.9145,
+   "lpips": 0.0802
+  },
+  {
+   "view": "00026.png",
+   "psnr": 23.848,
+   "ssim": 0.9078,
+   "lpips": 0.0897
+  },
+  {
+   "view": "00027.png",
+   "psnr": 21.9726,
+   "ssim": 0.8798,
+   "lpips": 0.1048
+  },
+  {
+   "view": "00028.png",
+   "psnr": 23.1286,
+   "ssim": 0.8909,
+   "lpips": 0.0943
+  },
+  {
+   "view": "00029.png",
+   "psnr": 27.7381,
+   "ssim": 0.9148,
+   "lpips": 0.0912
+  },
+  {
+   "view": "00030.png",
+   "psnr": 23.6228,
+   "ssim": 0.9133,
+   "lpips": 0.11
+  },
+  {
+   "view": "00031.png",
+   "psnr": 25.7114,
+   "ssim": 0.9271,
+   "lpips": 0.101
+  },
+  {
+   "view": "00032.png",
+   "psnr": 26.3986,
+   "ssim": 0.9343,
+   "lpips": 0.0977
+  },
+  {
+   "view": "00033.png",
+   "psnr": 18.0995,
+   "ssim": 0.8883,
+   "lpips": 0.1299
+  },
+  {
+   "view": "00034.png",
+   "psnr": 22.4573,
+   "ssim": 0.8902,
+   "lpips": 0.1237
+  },
+  {
+   "view": "00035.png",
+   "psnr": 20.6549,
+   "ssim": 0.9306,
+   "lpips": 0.0987
+  },
+  {
+   "view": "00036.png",
+   "psnr": 23.8632,
+   "ssim": 0.9161,
+   "lpips": 0.0845
+  },
+  {
+   "view": "00037.png",
+   "psnr": 21.0771,
+   "ssim": 0.925,
+   "lpips": 0.0935
+  }
+ ],
+ "provenance": "Colab T4 session 1, 2026-08-02, values rounded to 4dp in transfer; raw originals in Colab /content/work/eval/image_metrics"
+}

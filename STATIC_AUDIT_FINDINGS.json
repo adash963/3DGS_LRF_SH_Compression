@@ -1,0 +1,404 @@
+{
+  "schema_version": 1,
+  "audit_type": "static_non_execution",
+  "audit_date": "2026-08-02",
+  "repository": "/Users/kaushikthiyagarajan/projects/dash_ai/3DGS",
+  "branch": "dissertation",
+  "inspected_head": "778afd63d7bd9f7e30f6078b50f5727a87898e2d",
+  "reported_target_commit": "aa39dcbd8e7b84fb5efef750fb9a65f967a3e6d7",
+  "allowed_classifications": [
+    "Supported",
+    "Partially supported",
+    "Contradicted",
+    "Not statically verifiable",
+    "Missing evidence"
+  ],
+  "summary": {
+    "total_claims": 25,
+    "counts": {
+      "Supported": 15,
+      "Partially supported": 7,
+      "Contradicted": 1,
+      "Not statically verifiable": 1,
+      "Missing evidence": 1
+    },
+    "core_conclusion": "The main SH layout, storage arithmetic, SVD records, headline render metrics, test collection count, experiment-record count, and Colab fixes are supported. Raw model/renders/assets are not committed, byte/pixel identity is overstated or unsupported, figure provenance is mixed, and aa39dcb predates the final documented state."
+  },
+  "evidence_tiers": {
+    "source_logic": "Verified directly from committed source-code logic.",
+    "committed_artifact": "Supported by a committed JSON, CSV, YAML, Markdown stage record, or figure, but not independent proof that an experiment ran.",
+    "documentation_only": "Asserted only in prose without an adequate machine-readable or raw artifact.",
+    "requires_execution": "Cannot be independently verified without the missing input/output artifacts or a fresh run."
+  },
+  "claims": [
+    {
+      "id": 1,
+      "claim": "The Tanks & Temples train model contains 1,071,462 Gaussians.",
+      "classification": "Supported",
+      "evidence_level": ["committed_artifact"],
+      "evidence": [
+        {"path": "results/stages/stage_1_baseline.md", "lines": "21-24", "detail": "Records 1,071,462 Gaussians."},
+        {"path": "results/stages/stage_2_roundtrip_metrics.json", "lines": "2", "detail": "n_points is 1071462."},
+        {"path": "results/experiments/ablation/all_results.csv", "lines": "2-23", "detail": "baseline_sh_bytes is 205720704 in all rows."}
+      ],
+      "calculation": "205720704 / (48 * 4) = 1071462",
+      "caveat": "The PLY is not committed, so the point count was not directly inspected."
+    },
+    {
+      "id": 2,
+      "claim": "The PLY is approximately 265.7 MB.",
+      "classification": "Supported",
+      "evidence_level": ["committed_artifact"],
+      "evidence": [
+        {"path": "results/stages/stage_1_baseline.md", "lines": "21-24", "detail": "Records 265,724,108-byte PLY."},
+        {"path": "results/experiments/ablation/all_results.csv", "lines": "2-23", "detail": "baseline_ply_bytes is 265724108."}
+      ],
+      "calculation": {"decimal_mb": 265.724108, "binary_mib": 253.414257},
+      "caveat": "265.7 is decimal MB, not MiB; the PLY is absent from Git."
+    },
+    {
+      "id": 3,
+      "claim": "SH coefficients occupy approximately 205.7 MB or 77.4% of the model.",
+      "classification": "Supported",
+      "evidence_level": ["source_logic", "committed_artifact"],
+      "evidence": [
+        {"path": "src/sh_compression/storage.py", "lines": "12-14", "detail": "Defines baseline SH bytes as N*48*4."},
+        {"path": "src/sh_compression/sh_layout.py", "lines": "13-20,36-57", "detail": "Defines 3 DC plus 45 rest fields, all included in 48."},
+        {"path": "results/experiments/ablation/all_results.csv", "lines": "2-23", "detail": "Records 205720704 SH bytes and 265724108 PLY bytes."}
+      ],
+      "calculation": {"sh_bytes": 205720704, "decimal_mb": 205.720704, "binary_mib": 196.190552, "percent": 77.4189},
+      "caveat": "The report should explicitly label decimal MB."
+    },
+    {
+      "id": 4,
+      "claim": "The SH matrix has shape N×48 and includes 3 channels × 16 degree-3 coefficients.",
+      "classification": "Supported",
+      "evidence_level": ["source_logic"],
+      "evidence": [
+        {"path": "src/sh_compression/sh_layout.py", "lines": "1-20,23-57", "detail": "Canonical N×3×16 and flat N×48 layout, channel-major and DC-first."},
+        {"path": "scene/gaussian_model.py", "lines": "281-294,307-314", "detail": "Reference loader reads three DC and 45 rest values."},
+        {"path": "tests/unit/test_sh_layout.py", "lines": "7-36", "detail": "Tests constants and exact field mapping."}
+      ],
+      "caveat": null
+    },
+    {
+      "id": 5,
+      "claim": "SVD gives the reported energy and reconstruction-error values at ranks 1, 4, 8, 12, 16, and 48.",
+      "classification": "Supported",
+      "evidence_level": ["source_logic", "committed_artifact"],
+      "evidence": [
+        {"path": "results/experiments/rank_analysis/energy_vs_rank.csv", "lines": "2-11", "detail": "Stores cumulative energy rows."},
+        {"path": "results/experiments/rank_analysis/error_vs_rank.csv", "lines": "2-11", "detail": "Stores relative Frobenius, MSE, max error, energy, and theoretical bytes."},
+        {"path": "src/sh_compression/factorization.py", "lines": "66-87", "detail": "Implements reconstruction error and squared-singular-value energy."}
+      ],
+      "requested_rows": {
+        "1": {"energy": 0.9009290278816958, "relative_frobenius_error": 0.3147554163446192},
+        "4": {"energy": 0.9691884051291434, "relative_frobenius_error": 0.17553231859361063},
+        "8": {"energy": 0.9823779191619001, "relative_frobenius_error": 0.13274818581847142},
+        "12": {"energy": 0.9912406646083299, "relative_frobenius_error": 0.09359132113432256},
+        "16": {"energy": 0.9957619008504754, "relative_frobenius_error": 0.06510068470856153},
+        "48": {"energy": 1.0, "relative_frobenius_error": 1.329023980810293e-13}
+      },
+      "caveat": "Energy can be recalculated from committed singular values; errors cannot be independently recalculated because X is absent."
+    },
+    {
+      "id": 6,
+      "claim": "Rank 12 is the effective rank at the 99%-energy criterion.",
+      "classification": "Supported",
+      "evidence_level": ["source_logic", "committed_artifact"],
+      "evidence": [
+        {"path": "src/sh_compression/factorization.py", "lines": "91-94", "detail": "Uses cumulative s squared and returns the first rank meeting threshold."},
+        {"path": "results/experiments/rank_analysis/singular_values.csv", "lines": "2-49", "detail": "All 48 singular values are committed."}
+      ],
+      "calculation": "Cumulative squared singular-value share first reaches 0.99 at rank 12; rank-12 energy is 0.991240664608330.",
+      "caveat": null
+    },
+    {
+      "id": 7,
+      "claim": "Extract→reinsert verification is bit-exact.",
+      "classification": "Not statically verifiable",
+      "evidence_level": ["source_logic", "committed_artifact", "requires_execution"],
+      "evidence": [
+        {"path": "src/sh_compression/sh_layout.py", "lines": "23-33", "detail": "Flatten/unflatten are reshapes."},
+        {"path": "src/sh_compression/extraction.py", "lines": "19-35", "detail": "Round-trip procedure and coefficient max-difference calculation."},
+        {"path": "results/stages/stage_2_roundtrip_metrics.json", "lines": "2-4", "detail": "Records max_abs_coeff_diff 0.0."}
+      ],
+      "caveat": "Input/output PLYs and hashes are absent; a recorded result is not independent proof of execution."
+    },
+    {
+      "id": 8,
+      "claim": "Non-SH fields remain byte-identical.",
+      "classification": "Partially supported",
+      "evidence_level": ["source_logic", "committed_artifact"],
+      "evidence": [
+        {"path": "results/stages/stage_2_roundtrip_metrics.json", "lines": "4", "detail": "Records non_sh_fields_identical true."},
+        {"path": "src/sh_compression/ply_io.py", "lines": "73-84", "detail": "Insertion retains non-SH field arrays."},
+        {"path": "src/sh_compression/extraction.py", "lines": "26-31", "detail": "Comparison converts both sides to float32 before array_equal."}
+      ],
+      "caveat": "The implementation checks float32 value equality, not raw bytes, dtypes, headers, or file slices."
+    },
+    {
+      "id": 9,
+      "claim": "All 38 round-trip views are pixel-identical.",
+      "classification": "Missing evidence",
+      "evidence_level": ["documentation_only"],
+      "evidence": [
+        {"path": "results/stages/stage_2_layout.md", "lines": "20-27", "detail": "Narrative asserts 38/38 pixel-identical views."},
+        {"path": "results/stages/stage_2_roundtrip_metrics.json", "lines": "1-5", "detail": "Contains no view or render metrics."}
+      ],
+      "caveat": "No committed images, hashes, or per-view JSON support this claim."
+    },
+    {
+      "id": 10,
+      "claim": "Full-rank reconstruction produces approximately 101.14 dB PSNR and SSIM 1.0.",
+      "classification": "Supported",
+      "evidence_level": ["committed_artifact"],
+      "evidence": [
+        {"path": "results/experiments/image_metrics/metrics_lr_r48_fp32.json", "lines": "1-25", "detail": "Records 101.1419 vs-baseline PSNR, SSIM 1.0, 38 views, and no failures."}
+      ],
+      "calculation": "The mean of the 38 committed per-view rows reproduces 101.1419 and 1.0 at stored precision.",
+      "caveat": "Raw images are absent, and serialized full-rank coefficient error is nonzero before rounding."
+    },
+    {
+      "id": 11,
+      "claim": "Each reported rate-distortion row matches committed experiment results.",
+      "classification": "Partially supported",
+      "evidence_level": ["source_logic", "committed_artifact"],
+      "evidence": [
+        {"path": "results/figures/results_table.md", "lines": "3-24", "detail": "Contains 22 generated rows."},
+        {"path": "results/experiments/ablation/all_results.csv", "lines": "2-23", "detail": "Storage/coefficient source rows."},
+        {"path": "scripts/generate_report_assets.py", "lines": "14-35,64-95", "detail": "Loads all_results and attaches image summaries."}
+      ],
+      "caveat": "Report tables use render-run byte values, while the generated results table uses storage-run values. Overlapping totals differ by 1-41 bytes."
+    },
+    {
+      "id": 12,
+      "claim": "Scalar-quantised rank-16 uses approximately 13.7 MB of SH storage, gives approximately 15× SH compression, 34.63 dB PSNR, 0.992 SSIM, and 0.018 LPIPS against baseline renders.",
+      "classification": "Supported",
+      "evidence_level": ["committed_artifact"],
+      "evidence": [
+        {"path": "results/experiments/image_metrics/metrics_sq_r16_b8.json", "lines": "8-26", "detail": "Records 13670820 bytes, 15.0482x, 34.6322, 0.9919, 0.0184, 38 views, and no failures."},
+        {"path": "results/experiments/ablation/sq_r16_b8/metrics.json", "lines": "11-17", "detail": "Storage sweep records 13670845 bytes and 15.0481337x."}
+      ],
+      "caveat": "The two run-specific asset totals differ by 25 bytes but round identically."
+    },
+    {
+      "id": 13,
+      "claim": "The whole model falls from approximately 265.7 MB to 73.7 MB.",
+      "classification": "Supported",
+      "evidence_level": ["source_logic", "committed_artifact"],
+      "evidence": [
+        {"path": "src/sh_compression/storage.py", "lines": "25-29", "detail": "Defines whole compressed representation as non-SH baseline plus compressed SH bytes."},
+        {"path": "results/experiments/image_metrics/metrics_sq_r16_b8.json", "lines": "8-10", "detail": "Records compressed bytes and whole-model ratio."}
+      ],
+      "calculation": {"baseline_bytes": 265724108, "non_sh_bytes": 60003404, "compressed_sh_bytes": 13670820, "calculated_whole_bytes": 73674224, "decimal_mb": 73.674224, "binary_mib": 70.261215, "ratio": 3.6067446},
+      "caveat": "This is a calculated composite deployment size, not a committed packaged model file."
+    },
+    {
+      "id": 14,
+      "claim": "FP16 results are effectively identical to FP32.",
+      "classification": "Partially supported",
+      "evidence_level": ["committed_artifact"],
+      "evidence": [
+        {"path": "results/experiments/image_metrics/metrics_lr_r8_fp16.json", "lines": "summary key and 38 per-view rows", "detail": "r8 fp16 render record."},
+        {"path": "results/experiments/image_metrics/metrics_lr_r8_fp32.json", "lines": "summary key and 38 per-view rows", "detail": "r8 fp32 render record."},
+        {"path": "results/experiments/ablation/all_results.csv", "lines": "4,6,8,10-12", "detail": "Coefficient-space r4/r8/r16 fp32/fp16 pairs."}
+      ],
+      "caveat": "Rendered equivalence is demonstrated only for rank 8; r4 and r16 fp16 have coefficient/storage records but no committed render records."
+    },
+    {
+      "id": 15,
+      "claim": "Rank-16 8-bit scalar quantisation adds almost no loss compared with rank-16 FP32.",
+      "classification": "Supported",
+      "evidence_level": ["committed_artifact"],
+      "evidence": [
+        {"path": "results/experiments/image_metrics/metrics_lr_r16_fp32.json", "lines": "16-25", "detail": "FP32 summary."},
+        {"path": "results/experiments/image_metrics/metrics_sq_r16_b8.json", "lines": "17-26", "detail": "Scalar summary."}
+      ],
+      "calculation": {"vsbase_psnr_delta_db": -0.0484, "vsbase_ssim_delta": -0.0003, "vsbase_lpips_delta": 0.0002, "gt_psnr_delta_db": -0.0046},
+      "caveat": null
+    },
+    {
+      "id": 16,
+      "claim": "K-means VQ quality plateaus between rank 8 and rank 16 at K=256.",
+      "classification": "Supported",
+      "evidence_level": ["committed_artifact"],
+      "evidence": [
+        {"path": "results/experiments/image_metrics/metrics_vq_r8_k256.json", "lines": "18-27", "detail": "r8/K256 summary."},
+        {"path": "results/experiments/image_metrics/metrics_vq_r16_k256.json", "lines": "18-27", "detail": "r16/K256 summary."}
+      ],
+      "calculation": {"vsbase_psnr_gain_db": 0.3677, "vsbase_ssim_gain": 0.0021, "vsbase_lpips_change": 0.0001, "coefficient_error_change": -0.0024},
+      "caveat": "Plateau is a qualitative interpretation, not a formal thresholded test."
+    },
+    {
+      "id": 17,
+      "claim": "VQ indices dominate storage at K=256.",
+      "classification": "Supported",
+      "evidence_level": ["source_logic"],
+      "evidence": [
+        {"path": "src/sh_compression/quantization.py", "lines": "45-49,61-66,93-98", "detail": "K<=256 indices are uint8."},
+        {"path": "src/sh_compression/serialization.py", "lines": "114-127", "detail": "Raw component accounting."}
+      ],
+      "calculation": {
+        "r8_k256": {"indices": 1071462, "codebook": 8192, "v": 1536, "metadata_estimate": 512, "index_share_percent": 99.0533},
+        "r16_k256": {"indices": 1071462, "codebook": 16384, "v": 3072, "metadata_estimate": 512, "index_share_percent": 98.1705}
+      },
+      "caveat": "This is raw-array accounting; committed .npz totals are compressed and assets are ignored."
+    },
+    {
+      "id": 18,
+      "claim": "There are 50 automated tests: 46 unit and 4 integration.",
+      "classification": "Supported",
+      "evidence_level": ["source_logic"],
+      "evidence": [
+        {"path": "tests/unit/test_factorization.py", "lines": "15-80", "detail": "9 functions, one expanded to 3, yielding 11."},
+        {"path": "tests/unit/test_serialization.py", "lines": "17-77", "detail": "6 functions, one expanded to 4, yielding 9."},
+        {"path": "tests/unit", "lines": "all test files", "detail": "Static unit collection total is 46."},
+        {"path": "tests/integration/test_full_pipeline.py", "lines": "36-67", "detail": "One 3-way parameterized test plus one test yields 4."}
+      ],
+      "calculation": "Unit: 11+4+7+9+9+6=46; integration: 3+1=4; total=50.",
+      "caveat": "Tests were not executed; this verifies collection count only."
+    },
+    {
+      "id": 19,
+      "claim": "There are 34 experiment runs: 22 storage and 12 rendered.",
+      "classification": "Partially supported",
+      "evidence_level": ["committed_artifact"],
+      "evidence": [
+        {"path": "configs/quantization_ablation.yaml", "lines": "2-28", "detail": "Defines 22 configurations."},
+        {"path": "results/experiments/ablation/all_results.csv", "lines": "2-23", "detail": "Contains 22 storage records."},
+        {"path": "results/experiments/image_metrics", "lines": "12 JSON files", "detail": "Contains 12 rendered records."},
+        {"path": "results/stages/stage_7_ablation.md", "lines": "5-15", "detail": "Documents 22 storage and 12 rendered phases."}
+      ],
+      "caveat": "The 12 rendered names overlap the 22 configurations, and logs do not prove 34 separate invocations. There are 34 phase records but 22 unique names."
+    },
+    {
+      "id": 20,
+      "claim": "No experiment runs or rendered views are recorded as failed.",
+      "classification": "Supported",
+      "evidence_level": ["source_logic", "committed_artifact"],
+      "evidence": [
+        {"path": "results/experiments/ablation/all_results.json", "lines": "all 22 rows", "detail": "Every status is ok."},
+        {"path": "results/experiments/image_metrics", "lines": "all 12 JSON files", "detail": "Every failed_views array is empty and both per-view arrays contain 38 unique views."},
+        {"path": "scripts/run_ablation.py", "lines": "46-79", "detail": "Exceptions become failed status records."},
+        {"path": "src/sh_compression/metrics.py", "lines": "61-93", "detail": "Per-view exceptions are retained in failed_views."}
+      ],
+      "caveat": "This means no committed record reports a failure; it does not rule out unrecorded attempts."
+    },
+    {
+      "id": 21,
+      "claim": "Every reported result is traceable to committed JSON or CSV artifacts.",
+      "classification": "Contradicted",
+      "evidence_level": ["documentation_only"],
+      "evidence": [
+        {"path": "results/stages/stage_1_baseline.md", "lines": "21-24", "detail": "Baseline point/file claims are Markdown-only."},
+        {"path": "results/stages/stage_2_layout.md", "lines": "20-27", "detail": "38 pixel-identical views are Markdown-only."},
+        {"path": "results/stages/stage_7_ablation.md", "lines": "17-23", "detail": "Visual-comparison provenance is prose."},
+        {"path": ".gitignore", "lines": "13-16", "detail": "Renders and .npz assets are excluded."}
+      ],
+      "caveat": "Numeric SVD/storage/render tables have strong JSON/CSV traceability, but the universal claim is false."
+    },
+    {
+      "id": 22,
+      "claim": "Figures are generated from committed result files rather than manually entered values.",
+      "classification": "Partially supported",
+      "evidence_level": ["source_logic", "committed_artifact"],
+      "evidence": [
+        {"path": "scripts/generate_report_assets.py", "lines": "14-95", "detail": "Numeric rate-distortion plots/table load committed JSON records."},
+        {"path": "scripts/generate_report_assets.py", "lines": "97-120", "detail": "Storage breakdown loads .npz assets, which Git ignores."},
+        {"path": "scripts/analyse_rank.py", "lines": "23-68", "detail": "Rank figures are produced from a new PLY analysis, not by reading committed CSVs."},
+        {"path": "scripts/export_crops.py", "lines": "14-39", "detail": "Visual crops depend on raw render directories."}
+      ],
+      "caveat": "PNG files contain no checked provenance hashes, and visual comparison/raw inputs are not committed."
+    },
+    {
+      "id": 23,
+      "claim": "Each experiment directory records its configuration, metrics, and Git commit.",
+      "classification": "Partially supported",
+      "evidence_level": ["committed_artifact"],
+      "evidence": [
+        {"path": "results/experiments/ablation", "lines": "22 subdirectories", "detail": "Every subdirectory has config.yaml, metrics.json, and git_commit.txt with matching names."},
+        {"path": "results/experiments/ablation/*/git_commit.txt", "lines": "1", "detail": "All record valid ancestor 91c98737dd48da5a1302d59e062ef4bc498527cd."},
+        {"path": "EXPERIMENT_PLAN.md", "lines": "42-46", "detail": "Also promises environment, logs, assets, and sample renders."}
+      ],
+      "caveat": "Rendered records have embedded config but no per-run Git commit; promised environment/log/render artifacts are not committed."
+    },
+    {
+      "id": 24,
+      "claim": "The documented Colab compatibility fixes are present in the source and development log.",
+      "classification": "Supported",
+      "evidence_level": ["source_logic", "committed_artifact"],
+      "evidence": [
+        {"path": "scripts/fix_cfg_args.py", "lines": "1-11,23-38", "detail": "Implements POSIX path, eval=true, depths, and train_test_exp fields."},
+        {"path": "notebooks/colab_runner.ipynb", "lines": "74-89", "detail": "Invokes fix_cfg_args before inspection/rendering."},
+        {"path": "DEVELOPMENT_LOG.md", "lines": "20-45", "detail": "Documents both failures and fixes."}
+      ],
+      "caveat": null
+    },
+    {
+      "id": 25,
+      "claim": "Commit aa39dcb contains the state described by the findings summary.",
+      "classification": "Partially supported",
+      "evidence_level": ["committed_artifact"],
+      "evidence": [
+        {"git_object": "aa39dcbd8e7b84fb5efef750fb9a65f967a3e6d7", "detail": "Contains stage-1 through stage-7 results, figures, visual comparison, and stage-7 summary."},
+        {"path_at_commit": "aa39dcb:report/report_draft.md", "lines": "1-75", "detail": "Still contains multiple TODO(stage-8) placeholders."},
+        {"path_at_commit": "aa39dcb:STAGE_STATUS.yaml", "lines": "1-16", "detail": "Says stage 6 in progress and lists only stages 0-3 as passed."},
+        {"git_range": "aa39dcb..778afd6", "detail": "Seven documentation/notebook/status files changed after aa39dcb."}
+      ],
+      "caveat": "The final report and reproduction state was committed later in ae2faa2 and 778afd6."
+    }
+  ],
+  "global_discrepancies": [
+    {
+      "severity": "material",
+      "topic": "scalar_storage_formula",
+      "detail": "report/report_draft.md:97 uses 2*48*r*4 for scale/offset; implementation stores two length-r float32 vectors, so it must be 2*r*4."
+    },
+    {
+      "severity": "material",
+      "topic": "raw_evidence_not_committed",
+      "detail": "Baseline PLY, raw renders, compressed assets, and per-run logs are not committed."
+    },
+    {
+      "severity": "material",
+      "topic": "byte_identity_terminology",
+      "detail": "Non-SH verification checks float32 array values rather than bytes."
+    },
+    {
+      "severity": "material",
+      "topic": "pixel_identity_evidence",
+      "detail": "No committed per-view machine artifact supports 38/38 round-trip pixel identity."
+    },
+    {
+      "severity": "minor",
+      "topic": "duplicate_asset_sizes",
+      "detail": "Storage and render sweeps differ by 1-41 bytes for overlapping .npz totals."
+    },
+    {
+      "severity": "minor",
+      "topic": "units",
+      "detail": "Reported MB values are decimal; binary MiB values are 4.6-4.9% smaller."
+    },
+    {
+      "severity": "minor",
+      "topic": "vq_physical_index_width",
+      "detail": "K=64 and K=128 use uint8 storage, not packed 6-bit or 7-bit indices."
+    },
+    {
+      "severity": "minor",
+      "topic": "vq_codebook_plus_v_size",
+      "detail": "Approximately 10 KB applies to r8/K256, while r16/K256 codebook plus V is 19,456 bytes."
+    },
+    {
+      "severity": "minor",
+      "topic": "metrics_rounding",
+      "detail": "Committed per-view render metrics were rounded to four decimals during transfer; raw originals stayed in Colab."
+    },
+    {
+      "severity": "material",
+      "topic": "target_commit_scope",
+      "detail": "aa39dcb is the stage-7 evidence boundary, not the final findings/reproduction documentation state."
+    }
+  ]
+}
