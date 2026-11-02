@@ -1,8 +1,26 @@
-## Thesis reproduction (adash963)
+# Colab notebooks for my thesis (colab_run branch)
 
-`gaussian_splatting_colab.ipynb` now runs the MSc thesis pipeline — *Low-Rank Factorisation and Quantisation of Spherical Harmonics for Storage-Efficient 3D Gaussian Splatting* — from the `dissertation` branch of [adash963/3DGS](https://github.com/adash963/3DGS). Open it in Colab with a **T4 GPU** runtime and **Run all**; it prints `STAGE all PASS` when the headline result (rank 16 + 8-bit, 13.7 MB of SH, > 34 dB vs the uncompressed render) is reproduced.
+This branch holds the Google Colab notebooks for my MSc thesis, *Low-Rank Factorisation and
+Quantisation of Spherical Harmonics for Storage-Efficient 3D Gaussian Splatting*. The code,
+results and documentation are on the `main` branch of
+[adash963/3DGS_LRF_SH_Compression](https://github.com/adash963/3DGS_LRF_SH_Compression).
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/adash963/GS-colab/blob/main/gaussian_splatting_colab.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/adash963/3DGS_LRF_SH_Compression/blob/colab_run/gaussian_splatting_colab.ipynb)
+
+`gaussian_splatting_colab.ipynb` runs the thesis pipeline. It clones `main` and runs the same
+cells as `notebooks/colab_runner.ipynb` there. Open it with a **T4 GPU** runtime and choose
+**Run all**. It prints `STAGE all PASS` once the headline result (rank 16 + 8-bit, 13.7 MB of
+SH, above 34 dB against the uncompressed render) is reproduced. Steps, timings and expected
+numbers are in [COLAB.md](https://github.com/adash963/3DGS_LRF_SH_Compression/blob/main/COLAB.md).
+To run exactly the version described in the thesis, set `COMMIT = 'thesis-v1.0'` in the first
+code cell.
+
+`gaussian_splatting_viewer_colab.ipynb` is camenduru's web viewer, unchanged: drag and drop a
+`point_cloud.ply` into it.
+
+I started this branch from camenduru's
+[gaussian-splatting-colab](https://github.com/camenduru/gaussian-splatting-colab), whose
+README follows.
 
 ---
 
