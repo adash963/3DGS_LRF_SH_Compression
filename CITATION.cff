@@ -1,0 +1,50 @@
+cff-version: 1.2.0
+message: >-
+  This is the code from my MSc thesis. I built it on the original 3D Gaussian
+  Splatting paper and code by Kerbl et al. (2023), so when my thesis is cited,
+  their paper should be cited with it.
+type: software
+title: "Low-rank SH compression for 3D Gaussian Splatting"
+version: thesis-v1.0
+authors:
+  - family-names: Dash
+    given-names: Abhishek
+repository-code: "https://github.com/adash963/3DGS_LRF_SH_Compression"
+url: "https://github.com/adash963/3DGS_LRF_SH_Compression"
+keywords:
+  - 3D Gaussian Splatting
+  - spherical harmonics
+  - low-rank factorisation
+  - vector quantisation
+  - compression
+preferred-citation:
+  type: thesis
+  title: >-
+    Low-Rank Factorisation and Quantisation of Spherical Harmonics for
+    Storage-Efficient 3D Gaussian Splatting
+  authors:
+    - family-names: Dash
+      given-names: Abhishek
+  thesis-type: "MSc thesis (Machine Learning and AI)"
+  institution:
+    name: "Liverpool John Moores University"
+  year: 2026
+  month: 10
+references:
+  - type: article
+    title: "3D Gaussian Splatting for Real-Time Radiance Field Rendering"
+    authors:
+      - family-names: Kerbl
+        given-names: Bernhard
+      - family-names: Kopanas
+        given-names: Georgios
+      - family-names: Leimkühler
+        given-names: Thomas
+      - family-names: Drettakis
+        given-names: George
+    journal: "ACM Transactions on Graphics"
+    volume: 42
+    issue: 4
+    year: 2023
+    month: 7
+    url: "https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/"
