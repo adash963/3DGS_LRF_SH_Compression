@@ -91,7 +91,7 @@ model 3.63×), 34.93 dB / SSIM 0.9926 against its uncompressed render, and **−
 than the −0.62 dB on seen views. Source:
 [results/experiments/trained_heldout/summary.json](results/experiments/trained_heldout/summary.json).
 
-## Did the project reach its goal?
+## Project Goals and its Outcome
 
 The aim was to build a post-training SH compression framework based on low-rank
 factorisation and quantisation, and to measure the trade-off between size and quality. That
@@ -99,7 +99,7 @@ aim was met. Each research question has a measured answer, and the main result h
 reproduced twice on Colab (August 2026, and 1 November 2026 on a newer software stack, to
 the printed decimal).
 
-| Research question | Answer | Met? |
+| Research question | Answer 
 |---|---|---|
 | RQ1. How far can the rank be cut before quality drops? | Effective rank 12/48, but rank 16 is needed to stay within 1 dB; choose rank by image quality, not energy | Yes |
 | RQ2. Scalar or vector quantisation of the factors? | 8-bit scalar is almost free (15×, −0.62 dB); VQ reaches 264× but shifts base colour (−3.4 to −4.3 dB) | Yes |
@@ -195,8 +195,7 @@ shared on the same terms. The code added by this thesis (`src/sh_compression/`, 
 `tests/`, `configs/`, `notebooks/`) is offered for research use under the same conditions.
 The upstream files are unchanged apart from `README.md` and `.gitignore`.
 
-If you use the compression part of this work, please cite the thesis above as well as the
-original 3DGS paper.
+This compression part of the project would not exist without the original paper Produced by the authers mentioend below !
 
 ---
 
