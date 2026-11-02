@@ -1,6 +1,8 @@
 # Development log
 
-Newest entries at the top.
+Oldest entries first. I kept this log in my working repository,
+[adash963/3DGS](https://github.com/adash963/3DGS), until I moved the code here on
+2 November 2026, so the commit hashes below refer to that repository.
 
 ## 2026-08-02 — Stage 0 started
 
@@ -182,3 +184,14 @@ Newest entries at the top.
 - For the final repository: tag thesis-v1.0 (Section 3.6, Appendix B.1); the notebook,
   COLAB.md and CITATION.cff must point at 3DGS_LRF_SH_Compression; branches main,
   dissertation, vanilla-3DGS and colab_run as listed in thesis Table B.1.
+
+## 2026-11-02 — Moved to 3DGS_LRF_SH_Compression
+
+- Copied the files of the working repository into this one (dissertation branch).
+  The copy had missed .gitignore, .gitmodules and the four submodule links
+  (SIBR_viewers, diff-gaussian-rasterization, fused-ssim, simple-knn), which the Colab
+  build needs. Restored them at the same upstream commits, and stopped tracking .DS_Store.
+- Notebook, COLAB.md and CITATION.cff now point at 3DGS_LRF_SH_Compression. The notebook
+  clones `main` into /content/3DGS_LRF_SH_Compression; COMMIT = 'thesis-v1.0' pins the
+  version described in the thesis.
+- README rewritten in my own words; the research-question table now has two columns.

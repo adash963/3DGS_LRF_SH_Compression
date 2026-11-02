@@ -20,6 +20,13 @@ and renders), so the file names in the thesis can be matched to the repository.
 | `stages/stage_1_baseline.md`, `stage_1_environment.json`, `stage_2_layout.md`, `stage_2_roundtrip_metrics.json` | Colab sessions, August 2026 | Baseline model and render (Tables 3.1, 4.2, 5.13), GPU environment (Table 3.8), exact SH round trip and pixel-identical renders (Section 3.2.2) |
 | `final_reproduction/reproduction_report.md` | Colab notebook | Clean-runtime reproduction (August 2026) |
 
+I ran these experiments in my working repository, [adash963/3DGS](https://github.com/adash963/3DGS),
+before moving the code here, so the commit hashes inside the result files belong to that
+repository: `91c9873` in every `experiments/ablation/<name>/git_commit.txt`, and `95697f7`
+in `final_reproduction/reproduction_report.md`. The code those runs used is the same in this
+repository. The only later change under `src/` lets LPIPS run on the GPU when one is
+available.
+
 ## Thesis tables and figures
 
 | Thesis | File | Written by |

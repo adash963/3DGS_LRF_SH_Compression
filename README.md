@@ -1,45 +1,47 @@
-# Low-rank SH compression for 3D Gaussian Splatting (dissertation branch)
+# Low-rank SH compression for 3D Gaussian Splatting
 
-This branch holds the code, results and Colab runner for my MSc thesis, **"Low-Rank
-Factorisation and Quantisation of Spherical Harmonics for Storage-Efficient 3D Gaussian
-Splatting"** (Abhishek Dash, Liverpool John Moores University / upGrad, supervised by
-Prof Mahaveer Jain, 2026).
+This repository holds the code, results and Colab notebook for my MSc thesis,
+**"Low-Rank Factorisation and Quantisation of Spherical Harmonics for Storage-Efficient 3D
+Gaussian Splatting"** (Abhishek Dash, Liverpool John Moores University / upGrad, 2026),
+supervised by Prof Mahaveer Jain. The version described in the thesis is tagged
+`thesis-v1.0`.
 
-It is built on top of the official 3D Gaussian Splatting code from Inria and MPII, which
-is included **unmodified** further down this page. All credit for the base method and the
-renderer goes to its authors; see [Credits and licence](#credits-and-licence).
+I built the project on the official 3D Gaussian Splatting code from Inria and MPII. Their
+code is used unmodified, and their original README is kept further down this page. The
+base method and the renderer are their work; see [Credits and licence](#credits-and-licence).
 
-## Why this project
+## Why I worked on this
 
-A trained 3DGS scene is big, and most of that size isn't geometry. Each Gaussian stores
+A trained 3DGS scene is large, and most of the file is not geometry. Each Gaussian stores
 62 floats (248 bytes), and 48 of them (192 bytes, 77 %) are spherical-harmonic (SH)
-coefficients that let its colour change with viewing direction. In the scene used here,
+coefficients, which let its colour change with the viewing direction. In the scene I used,
 that is 205.7 MB of a 265.7 MB file.
 
-The question behind the thesis was simple: **how much of that colour data is actually
-redundant, and what is removing the redundancy worth in storage, without retraining the
-model or touching the renderer?**
+I wanted to know how much of this colour data is redundant, and how much storage I could
+save by removing the redundancy, without retraining the model or changing the renderer.
 
 ## How it works
 
 The pipeline runs after training, on an ordinary `point_cloud.ply`:
 
-1. **Extract.** Read the PLY and stack every Gaussian's 48 SH values into one N × 48
-   matrix. The other 14 fields (position, scale, rotation, opacity, normals) are left alone.
+1. **Extract.** Read the PLY and stack the 48 SH values of every Gaussian into one N × 48
+   matrix. The other 14 fields (position, scale, rotation, opacity, normals) stay as they
+   are.
 2. **Factorise.** A truncated SVD splits the matrix into a small basis `V` (r × 48) shared
    by every Gaussian, and `U` (N × r), a few weights per Gaussian. SVD gives the best
-   rank-r approximation, and its singular values tell you directly how redundant the data is.
-3. **Quantise `U`.** Store the weights as float16, as 8- or 16-bit scalar codes, or as a
-   single K-means codebook index. Because `V` is orthonormal, an error in `U` reaches the
-   coefficients unchanged, so quantising `U` alone is enough.
-4. **Pack.** Write everything into one versioned, zlib-compressed `.npz` file. Its size on
-   disk is the number reported as the compressed size, never an estimate.
+   rank-r approximation, and its singular values show how redundant the data is.
+3. **Quantise `U`.** The weights are stored as float16, as 8- or 16-bit scalar codes, or
+   as a single K-means codebook index. `V` is orthonormal, so an error in `U` reaches the
+   coefficients unchanged, and quantising `U` alone is enough.
+4. **Pack.** Everything goes into one versioned, zlib-compressed `.npz` file. The
+   compressed size I report is the size of this file on disk, never an estimate.
 5. **Decode and render.** One matrix product rebuilds the coefficients, a standard PLY is
    written, and the unchanged 3DGS rasteriser renders it.
 
-Per Gaussian, the colour data goes from 192 bytes to 64 (rank 16, float32), to 16
-(rank 16, 8-bit), to 1 byte (one VQ index). Because geometry is not touched, the whole
-file can never shrink by more than 248 ÷ 56 = **4.43×**, however small the colour gets.
+Per Gaussian, the colour data goes from 192 bytes to 64 (rank 16, float32), then to 16
+(rank 16, 8-bit) and finally to 1 byte (one VQ index). The geometry is not touched, so the
+whole file can never shrink by more than 248 ÷ 56 = **4.43×**, however small the colour
+data gets.
 
 ## Repository layout
 
@@ -53,14 +55,14 @@ file can never shrink by more than 248 ÷ 56 = **4.43×**, however small the col
 | `notebooks/colab_runner.ipynb` | One-click GPU run on Google Colab (see [COLAB.md](COLAB.md)) |
 | `results/` | Every number in the thesis: rank analysis, storage of all 22 configurations, per-view image metrics, the same-checkpoint comparison, the thesis figures and the held-out check. [results/README.md](results/README.md) maps each thesis table and figure to its file |
 | `requirements-cpu.txt`, `requirements-colab.txt` | Pinned dependencies for the CPU stages (versions of thesis Table 3.8) and for Colab |
-| `CITATION.cff` | How to cite the thesis |
-| `docs/code_explanation/` | A walkthrough of every Python file the thesis pipeline uses (thesis code and upstream), with an index and a reading order |
-| `COLAB.md`, `DEVELOPMENT_LOG.md` | How to run the notebook; the dated record of what was done and decided |
+| `CITATION.cff` | Citation details for the thesis |
+| `docs/code_explanation/` | A walkthrough of every Python file the thesis pipeline uses (my code and the upstream code), with an index and a reading order |
+| `COLAB.md`, `DEVELOPMENT_LOG.md` | How to run the notebook, and my dated record of what I did and decided |
 | everything else | The original 3DGS code, unchanged |
 
-Planning notes, stage reports, the August 2026 report drafts and the static audit were
-removed once the thesis superseded them; they remain in the git history (last present in
-commit `6e01491`).
+I developed the code in a separate working repository and brought over only the files the
+thesis uses. The commit hashes in `DEVELOPMENT_LOG.md` and in some result files refer to
+that working repository; [results/README.md](results/README.md) explains which.
 
 ## Key results (Tanks and Temples *train*, N = 1,071,462, 265.7 MB PLY)
 
@@ -73,38 +75,38 @@ commit `6e01491`).
 
 - The SH matrix is strongly low-rank: **12 of 48** components hold 99 % of the energy,
   and the first one alone holds 90 %.
-- Energy is a poor guide to image quality, though. Rank 1 keeps 90 % of the energy and still
-  loses 6.5 dB, and rank 16 (not 12) is needed to stay within 1 dB.
-- Compression takes 6–7 s for low-rank and scalar and 50–658 s for VQ on a CPU. Decoding
-  takes 2–9 s. Rendering speed and GPU memory are unchanged, so the gain is in storage and
-  transfer.
+- Energy turned out to be a poor guide to image quality. Rank 1 keeps 90 % of the energy
+  and still loses 6.5 dB, and I needed rank 16, not 12, to stay within 1 dB.
+- On a CPU, compression takes 6–7 s for low-rank and scalar and 50–658 s for VQ, and
+  decoding takes 2–9 s. Rendering speed and GPU memory do not change, so the saving is in
+  storage and transfer.
 - Full table of all 22 configurations: [results/figures/results_table.md](results/figures/results_table.md).
 - Where each thesis table and figure comes from (file and script):
   [results/README.md](results/README.md#thesis-tables-and-figures).
 
-**Held-out check (thesis Section 3.6.2).** The pretrained checkpoint above had seen
-its test views during training (`eval=False`). To check this didn't flatter the result, a new
-checkpoint was trained for the full 30,000 iterations with every 8th camera held out
+**Held-out check (thesis Section 3.6.2).** The pretrained checkpoint above had seen its
+test views during training (`eval=False`). To make sure this did not flatter the result, I
+trained a new checkpoint for the full 30,000 iterations with every 8th camera held out
 (1,089,609 Gaussians). Rank 16 + 8-bit on that model gives 13.47 MB of SH (15.5×, whole
 model 3.63×), 34.93 dB / SSIM 0.9926 against its uncompressed render, and **−0.29 dB**
-(22.06 → 21.77 dB) and −0.004 SSIM against the held-out photographs. That is a smaller loss
-than the −0.62 dB on seen views. Source:
+(22.06 → 21.77 dB) and −0.004 SSIM against the held-out photographs. That loss is smaller
+than the −0.62 dB on the seen views. Source:
 [results/experiments/trained_heldout/summary.json](results/experiments/trained_heldout/summary.json).
 
-## Project Goals and its Outcome
+## Project goals and outcome
 
-The aim was to build a post-training SH compression framework based on low-rank
-factorisation and quantisation, and to measure the trade-off between size and quality. That
-aim was met. Each research question has a measured answer, and the main result has now been
-reproduced twice on Colab (August 2026, and 1 November 2026 on a newer software stack, to
-the printed decimal).
+My aim was to build a post-training SH compression framework based on low-rank
+factorisation and quantisation, and to measure the trade-off between size and quality.
+Each research question now has a measured answer, and I have reproduced the main result
+twice on Colab: in August 2026, and again on 1 November 2026 on a newer software stack,
+where it matched to the printed decimal.
 
-| Research question | Answer 
-|---|---|---|
-| RQ1. How far can the rank be cut before quality drops? | Effective rank 12/48, but rank 16 is needed to stay within 1 dB; choose rank by image quality, not energy | Yes |
-| RQ2. Scalar or vector quantisation of the factors? | 8-bit scalar is almost free (15×, −0.62 dB); VQ reaches 264× but shifts base colour (−3.4 to −4.3 dB) | Yes |
-| RQ3. What whole-model ratio is possible? | 3.61× at near-transparent quality, 4.37× with VQ, against a hard ceiling of 4.43× | Yes |
-| RQ4. What does it cost? | Seconds to minutes offline, 2–9 s to decode, rendering unchanged | Yes |
+| Research question | Answer |
+|---|---|
+| RQ1. How far can the rank be cut before quality drops? | The effective rank is 12 of 48, but rank 16 is needed to stay within 1 dB, so the rank should be chosen by image quality rather than by energy |
+| RQ2. Scalar or vector quantisation of the factors? | 8-bit scalar costs almost nothing (15×, −0.62 dB); VQ reaches 264× but shifts the base colour (−3.4 to −4.3 dB) |
+| RQ3. What whole-model ratio is possible? | 3.61× at near-transparent quality and 4.37× with VQ, against a hard ceiling of 4.43× |
+| RQ4. What does it cost? | Seconds to minutes offline, 2–9 s to decode, and no change to rendering |
 
 | Objective | Status |
 |---|---|
@@ -112,24 +114,29 @@ the printed decimal).
 | Characterise the SH spectrum | Done (`results/experiments/rank_analysis/`) |
 | Implement and test the pipeline | Done (`src/`, `scripts/`, 50 passing tests) |
 | Evaluate against paired baselines | Done (`results/experiments/`) |
-| Compare with published methods | Done: same-checkpoint comparison with peer-style SH treatments (`scripts/compare_sh_baselines.py` → `results/experiments/sh_baselines/`; Tables 5.4, 5.7, 5.8) and author-reported published results (`scripts/figures/make_charts.py`; Table 5.10, Figure 5.3) |
+| Compare with published methods | Done: a same-checkpoint comparison with peer-style SH treatments (`scripts/compare_sh_baselines.py` → `results/experiments/sh_baselines/`; Tables 5.4, 5.7, 5.8) and the results other authors report (`scripts/figures/make_charts.py`; Table 5.10, Figure 5.3) |
 | Analyse the limits of SH-only compression | Done (4.43× storage model; no runtime memory gain) |
 
-What the results do **not** show, to be clear about it:
-- **One scene.** The rank structure may differ elsewhere.
+Limitations:
+- **One scene.** I tested a single scene, and the rank structure may be different
+  elsewhere.
 - **Metric tools.** SSIM (scikit-image) and LPIPS (AlexNet) are not the reference
-  implementations, so absolute values shouldn't be compared with papers.
-- **Not state of the art on total size.** Published methods reach 10–76× on Tanks and Temples
-  because they also prune, compress geometry and retrain. This work is a complementary colour
-  component, not a competitor on total size.
+  implementations, so the absolute values should not be compared with numbers in papers.
+- **Total size.** Published methods reach 10–76× on Tanks and Temples because they also
+  prune Gaussians, compress the geometry and retrain. My method compresses only the colour
+  data. It could be used alongside those methods, but on total size it does not compete
+  with them.
 
 ## Running it
 
 **On Colab (GPU):** open `notebooks/colab_runner.ipynb` and follow [COLAB.md](COLAB.md).
-About 15 minutes for the reproduction, plus an hour if you also run the full training.
+The reproduction takes about 15 minutes, plus an hour if you also run the full training.
 
 **Locally (CPU only):**
 
+    git clone --recursive https://github.com/adash963/3DGS_LRF_SH_Compression.git
+    cd 3DGS_LRF_SH_Compression
+    git checkout thesis-v1.0                         # the version described in the thesis
     python -m venv .venv && . .venv/bin/activate
     pip install -r requirements-cpu.txt              # versions of thesis Table 3.8
     pytest tests -q                                  # 50 tests
@@ -139,22 +146,25 @@ About 15 minutes for the reproduction, plus an hour if you also run the full tra
     python scripts/figures/make_diagrams.py          # thesis Figures 3.1-3.3
 
 The figure scripts need only the committed `results/`. `analyse_rank.py`, `run_ablation.py`
-and `compare_sh_baselines.py` need the pretrained checkpoint (see [data/README.md](data/README.md));
-`compare_sh_baselines.py` also reads the `asset.npz` files that `run_ablation.py` writes.
+and `compare_sh_baselines.py` need the pretrained checkpoint (see [data/README.md](data/README.md)).
+`compare_sh_baselines.py` also reads the `asset.npz` files that `run_ablation.py` writes,
+so run the ablation first.
 
 Troubleshooting:
-- `SyntaxError: unicodeescape ... cfg_args`: the pretrained checkpoint ships a
-  Windows-written `cfg_args`. Run `scripts/fix_cfg_args.py` (the notebook does this for you).
+- `SyntaxError: unicodeescape ... cfg_args`: the pretrained checkpoint comes with a
+  `cfg_args` written on Windows. Run `scripts/fix_cfg_args.py` (the notebook does this for
+  you).
 - `'GroupParams' object has no attribute 'depths'`: same fix.
 - CUDA extensions fail to build on a new Colab image: the notebook installs them with
   `--no-build-isolation` and adds two missing `#include`s. If Colab changes again, look
   at `/content/compile.log`.
+- `submodules/` is empty: the repository was cloned without `--recursive`. Run
+  `git submodule update --init --recursive`.
 
 ## Credits and licence
 
-This project would not exist without the original 3D Gaussian Splatting work. The base code
-in this repository, including the training code, the renderer, the CUDA rasteriser
-(`submodules/diff-gaussian-rasterization`) and `simple-knn`, comes from:
+The base code in this repository, including the training code, the renderer, the CUDA
+rasteriser (`submodules/diff-gaussian-rasterization`) and `simple-knn`, comes from:
 
 > Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler and George Drettakis. **3D Gaussian
 > Splatting for Real-Time Radiance Field Rendering.** *ACM Transactions on Graphics*, 42(4),
@@ -190,12 +200,14 @@ Other work this project relies on:
 
 **Licence.** The base 3DGS code is released under the **Gaussian-Splatting License**
 ([LICENSE.md](LICENSE.md)), owned by Inria and MPII, which allows **non-commercial research
-and evaluation use only**. This repository is an academic, non-commercial project and is
-shared on the same terms. The code added by this thesis (`src/sh_compression/`, `scripts/`,
-`tests/`, `configs/`, `notebooks/`) is offered for research use under the same conditions.
-The upstream files are unchanged apart from `README.md` and `.gitignore`.
+and evaluation use only**. This is an academic, non-commercial project, and I share it on
+the same terms. The code I added (`src/sh_compression/`, `scripts/`, `tests/`, `configs/`,
+`notebooks/`) is offered for research use under the same conditions. Apart from
+`README.md` and `.gitignore`, the upstream files are unchanged.
 
-This compression part of the project would not exist without the original paper Produced by the authers mentioend below !
+The compression part of this project would not exist without the original paper by the
+authors credited above, whose own README follows below. Citation details for my thesis are
+in [CITATION.cff](CITATION.cff).
 
 ---
 

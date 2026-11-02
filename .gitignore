@@ -1,0 +1,19 @@
+*.pyc
+.vscode
+output
+build
+diff_rasterization/diff_rast.egg-info
+diff_rasterization/dist
+tensorboard_3d
+screenshots
+# sh-compression project
+.venv/
+__pycache__/
+*.egg-info/
+results/renders/
+.DS_Store
+results/experiments/**/asset.npz
+results/experiments/**/*.npz
+# working plots from analyse_rank.py / generate_report_assets.py (thesis figures: results/figures/thesis/)
+results/figures/*.png
+!results/figures/visual_comparisons.png

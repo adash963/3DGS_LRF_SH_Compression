@@ -1,14 +1,16 @@
 cff-version: 1.2.0
 message: >-
-  If you use the SH-compression code in this repository, please cite the thesis below
-  and the original 3D Gaussian Splatting paper (Kerbl et al., 2023).
+  This is the code from my MSc thesis. I built it on the original 3D Gaussian
+  Splatting paper and code by Kerbl et al. (2023), so when my thesis is cited,
+  their paper should be cited with it.
 type: software
 title: "Low-rank SH compression for 3D Gaussian Splatting"
-version: 0.1.0
+version: thesis-v1.0
 authors:
   - family-names: Dash
     given-names: Abhishek
-repository-code: "https://github.com/adash963/3DGS"
+repository-code: "https://github.com/adash963/3DGS_LRF_SH_Compression"
+url: "https://github.com/adash963/3DGS_LRF_SH_Compression"
 keywords:
   - 3D Gaussian Splatting
   - spherical harmonics
