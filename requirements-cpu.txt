@@ -1,0 +1,13 @@
+# CPU stages: tests, SVD, quantisation, ablation, same-checkpoint comparison and figures.
+# Versions of the local environment in thesis Table 3.8 (Apple-silicon Mac, Python 3.12).
+# GPU stages run on Colab with requirements-colab.txt.
+numpy==2.5.1
+scipy==1.18.0
+scikit-image==0.26.0
+plyfile==1.1.5
+matplotlib==3.11.1
+PyYAML==6.0.3
+# Not listed in Table 3.8; checked together with the pins above on 2 Nov 2026.
+imageio==2.38.1
+pillow==13.0.0
+pytest==9.2.0

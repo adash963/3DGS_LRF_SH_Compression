@@ -1,0 +1,18 @@
+{
+  "name": "vq_r16_k256",
+  "status": "ok",
+  "rank": 16,
+  "mode": "vq",
+  "codebook_size": 256,
+  "factor_dtype": null,
+  "scalar_bits": null,
+  "coeff_mse": 0.004211712162941694,
+  "coeff_rel_frobenius_error": 0.1958014816045761,
+  "asset_file_bytes": 1031737,
+  "baseline_sh_bytes": 205720704,
+  "compressed_sh_bytes": 1031737,
+  "sh_compression_ratio": 199.39258163659926,
+  "baseline_ply_bytes": 265724108,
+  "whole_model_bytes_compressed": 61035141,
+  "whole_model_ratio": 4.353624873251296
+}

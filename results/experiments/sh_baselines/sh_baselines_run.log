@@ -1,0 +1,42 @@
+N=1,071,462; test views=38; building colour proxy...
+lr_r12_fp32      48,223,390 B      4.3x  rel=0.0936  proxy=30.99 dB
+lr_r16_fp16      32,262,284 B      6.4x  rel=0.0651  proxy=33.61 dB
+lr_r16_fp32      64,315,628 B      3.2x  rel=0.0651  proxy=33.61 dB
+lr_r1_fp32        3,949,315 B     52.1x  rel=0.3147  proxy=19.43 dB
+lr_r2_fp32        7,967,493 B     25.8x  rel=0.2088  proxy=21.75 dB
+lr_r48_fp32     194,284,343 B      1.1x  rel=0.0000  proxy=146.66 dB
+lr_r4_fp16        8,085,553 B     25.4x  rel=0.1755  proxy=23.40 dB
+lr_r4_fp32       16,056,786 B     12.8x  rel=0.1755  proxy=23.40 dB
+lr_r6_fp32       24,112,827 B      8.5x  rel=0.1528  proxy=25.15 dB
+lr_r8_fp16       16,144,113 B     12.7x  rel=0.1327  proxy=26.84 dB
+lr_r8_fp32       32,148,190 B      6.4x  rel=0.1327  proxy=26.84 dB
+sq_r16_b8        13,670,845 B     15.0x  rel=0.0663  proxy=33.42 dB
+sq_r8_b8          7,099,421 B     29.0x  rel=0.1333  proxy=26.80 dB
+vq_r16_k128         899,582 B    228.7x  rel=0.2095  proxy=21.90 dB
+vq_r16_k256       1,031,737 B    199.4x  rel=0.1958  proxy=22.50 dB
+vq_r16_k64          780,545 B    263.6x  rel=0.2251  proxy=21.29 dB
+vq_r4_k128          894,734 B    229.9x  rel=0.2123  proxy=21.79 dB
+vq_r4_k256        1,020,416 B    201.6x  rel=0.2021  proxy=22.20 dB
+vq_r4_k64           778,816 B    264.1x  rel=0.2265  proxy=21.28 dB
+vq_r8_k128          898,508 B    229.0x  rel=0.2105  proxy=21.93 dB
+vq_r8_k256        1,025,279 B    200.6x  rel=0.1982  proxy=22.40 dB
+vq_r8_k64           778,534 B    264.2x  rel=0.2255  proxy=21.29 dB
+sq_r4_b8          3,516,166 B     58.5x  rel=0.1759  proxy=23.39 dB
+sq_r12_b8        10,345,976 B     19.9x  rel=0.0944  proxy=30.89 dB
+sq_r24_b8        20,645,402 B     10.0x  rel=0.0422  proxy=36.98 dB
+sq_r32_b8        27,227,596 B      7.6x  rel=0.0286  proxy=41.01 dB
+sq_r48_b8        39,996,044 B      5.1x  rel=0.0127  proxy=47.07 dB
+sq_r16_b16       32,590,282 B      6.3x  rel=0.0651  proxy=33.61 dB
+fp16_raw         90,983,014 B      2.3x  rel=0.0002  proxy=86.27 dB
+q8_raw           39,694,150 B      5.2x  rel=0.0114  proxy=48.33 dB
+deg2            104,111,268 B      2.0x  rel=0.1344  proxy=26.13 dB
+deg1             46,448,161 B      4.4x  rel=0.1712  proxy=23.74 dB
+deg1_q8           9,609,612 B     21.4x  rel=0.1716  proxy=23.73 dB
+deg0             11,747,968 B     17.5x  rel=0.1880  proxy=22.17 dB
+deg0_q8           2,679,692 B     76.8x  rel=0.1883  proxy=22.16 dB
+  rawvq_k64: K-means 28 s
+rawvq_k64           785,330 B    262.0x  rel=0.2254  proxy=21.31 dB
+  rawvq_k256: K-means 397 s
+rawvq_k256        1,057,660 B    194.5x  rel=0.1953  proxy=22.47 dB
+proxy vs rendered PSNR: pearson=0.993 spearman=0.991 over 11 configs
+wrote 37 rows to results/experiments/sh_baselines

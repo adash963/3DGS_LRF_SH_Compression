@@ -1,0 +1,4 @@
+factor_dtype: float16
+mode: lowrank
+name: lr_r8_fp16
+rank: 8

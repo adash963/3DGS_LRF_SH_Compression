@@ -1,0 +1,2 @@
+# Stage 3/4: rank sweep, low-rank only (fp32)
+ranks: [1, 2, 4, 6, 8, 12, 16, 24, 32, 48]

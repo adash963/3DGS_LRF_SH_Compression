@@ -1,0 +1,36 @@
+{
+  "description": "Extension beyond the thesis: fresh 3DGS checkpoint trained for the full 30,000 iterations with --eval (every 8th camera held out), then the headline configuration sq_r16_b8 applied to it. Values copied from the Colab cell outputs; the per-view files were not exported.",
+  "run": {
+    "date_utc": "2026-11-01",
+    "repo_commit": "5754d3dca784665eb057bb08ae047294486d2b42",
+    "notebook": "notebooks/colab_runner.ipynb (cell 7, TRAIN_ITERATIONS = 30000)",
+    "environment": {"gpu": "Tesla T4 (14.6 GB)", "python": "3.13.16", "torch": "2.11.0+cu130", "cuda": "13.0"},
+    "train_command": "python train.py -s tandt/train -m trained --eval --iterations 30000 --test_iterations 7000 30000 --save_iterations 30000",
+    "train_wall_time_min_approx": 55,
+    "metrics_tools": "scikit-image SSIM, PSNR as in sh_compression.metrics; LPIPS not computed (--no-lpips)"
+  },
+  "scene": "Tanks and Temples train",
+  "test_views": 38,
+  "trained_model": {
+    "n_gaussians": 1089609,
+    "ply_bytes": 270224564,
+    "sh_bytes": 209204928,
+    "sh_share": 0.774,
+    "vs_gt_heldout": {"psnr": 22.057909991408874, "ssim": 0.8179537497068706}
+  },
+  "sq_r16_b8_on_trained": {
+    "asset_file_bytes": 13471247,
+    "sh_compression_ratio": 15.53,
+    "whole_model_bytes": 74490883,
+    "whole_model_ratio": 3.628,
+    "vs_gt_heldout": {"psnr": 21.773010921192306, "ssim": 0.813853350124861},
+    "vs_uncompressed_render": {"psnr": 34.9257989998406, "ssim": 0.9925783025590997},
+    "delta_vs_trained_baseline": {"psnr_db": -0.285, "ssim": -0.0041}
+  },
+  "thesis_reference_pretrained_eval_false": {
+    "asset_file_bytes": 13670845,
+    "vs_gt": {"baseline_psnr": 24.93, "psnr": 24.31, "delta_psnr_db": -0.62},
+    "vs_uncompressed_render": {"psnr": 34.63, "ssim": 0.9919},
+    "reproduced_2026_11_01": {"gt_psnr": 24.312173518667425, "gt_ssim": 0.8584615572502738, "vsbase_psnr": 34.63220971980244, "vsbase_ssim": 0.9919354727393702}
+  }
+}

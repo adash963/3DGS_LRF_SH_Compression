@@ -1,0 +1,9 @@
+# Pinned Colab dependencies (Colab already ships torch+CUDA; do not reinstall torch).
+plyfile==1.0.3
+scipy>=1.11
+scikit-image>=0.22
+imageio>=2.31
+pandas>=2.0
+matplotlib>=3.8
+pyyaml>=6.0
+lpips==0.1.4

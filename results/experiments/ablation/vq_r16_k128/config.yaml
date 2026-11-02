@@ -1,0 +1,5 @@
+codebook_size: 128
+mode: vq
+name: vq_r16_k128
+rank: 16
+seed: 0
