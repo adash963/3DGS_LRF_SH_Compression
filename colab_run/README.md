@@ -1,11 +1,11 @@
-# Colab notebooks for my thesis (colab_run branch)
+# Colab notebooks for my thesis
 
-This branch holds the Google Colab notebooks for my MSc thesis, *Low-Rank Factorisation and
+This folder holds the Google Colab notebooks for my MSc thesis, *Low-Rank Factorisation and
 Quantisation of Spherical Harmonics for Storage-Efficient 3D Gaussian Splatting*. The code,
 results and documentation are on the `main` branch of
 [adash963/3DGS_LRF_SH_Compression](https://github.com/adash963/3DGS_LRF_SH_Compression).
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/adash963/3DGS_LRF_SH_Compression/blob/colab_run/gaussian_splatting_colab.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/adash963/3DGS_LRF_SH_Compression/blob/colab_run/colab_run/gaussian_splatting_colab.ipynb)
 
 `gaussian_splatting_colab.ipynb` runs the thesis pipeline. It clones `main` and runs the same
 cells as `notebooks/colab_runner.ipynb` there. Open it with a **T4 GPU** runtime and choose
@@ -18,7 +18,7 @@ code cell.
 `gaussian_splatting_viewer_colab.ipynb` is camenduru's web viewer, unchanged: drag and drop a
 `point_cloud.ply` into it.
 
-I started this branch from camenduru's
+I started these notebooks from camenduru's
 [gaussian-splatting-colab](https://github.com/camenduru/gaussian-splatting-colab), whose
 README follows.
 
